@@ -3,9 +3,7 @@ import { Route, Switch } from 'react-router';
 import ApiContext from './ApiContext';
 import Main from './Main/Main';
 import Start from './Start/Start';
-import STORE from './STORE'
 import './App.css'
-
 
 class App extends Component {
   constructor(props) {
@@ -31,25 +29,117 @@ class App extends Component {
         "shop": {
           "name": "..."
         }
+      },
+      history: [
+        {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
+      },
+      {
+        "name": "Searching...",
+        "counts": 0,
+        "dollars": 0
       }
+    ]
     }
   }
 
 
   componentDidMount() {
     
-    /*fetch('')
-    .then(response => {
-      return response.json()
+    Promise.all([
+      fetch('https://sheltered-chamber-91871.herokuapp.com/api/counts/'),
+      fetch(`https://api.isthereanydeal.com/v01/deals/list/?key=${process.env.REACT_APP_API_KEY}&offset=0&region=us&country=US&shops=origin,gog,epic&limit=1000`)
+    ])
+    .then(([responseCounts, responseSales]) => {
+      console.log("process.env: ");
+      console.log(process.env);
+      return Promise.all([responseCounts.json(), responseSales.json()])
     })
-    .then(responseJson => {
-      console.log(responseJson)
-      this.setState({ sales: responseJson.data.list})
+    .then(([counts, sales]) => {
+
+      this.setState({ sales: sales.data.list})
+
+      let currentGreaterThan = this.greaterThanNintey();
+      let currentTotalDollars = this.totalDollarSavings();
+      let currentTotalSales = this.totalSales();
+
+      // Greater than 90
+      counts[0].counts += currentGreaterThan;
+      // Total sales dollars
+      counts[5].dollars += currentTotalDollars;
+      console.log(Number(counts[5].dollars))
+      // Total sales count
+      counts[1].counts += currentTotalSales.all;
+      // Epic sales
+      counts[2].counts += currentTotalSales.epic;
+      // Gog sales
+      counts[3].counts += currentTotalSales.gog;
+      // Origin sales
+      counts[4].counts += currentTotalSales.origin;
+
+      this.setState({ history: counts})
       this.getRandom();
-    })*/
-    this.setState( { sales: STORE.data.list });
-    setTimeout(() => {this.getRandom();}, 2000 )
-    this.getRandom();
+    })
+    .then(() => {
+      for(let i=0;i<this.state.history.length;i++) {
+
+        fetch(`https://sheltered-chamber-91871.herokuapp.com/api/counts/${this.state.history[i].name}`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+          "counts": this.state.history[i].counts,
+          "dollars": this.state.history[i].dollars
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+      }
+    })
+  
+
+
   }
 
   findMaxPercent = () => {
@@ -139,6 +229,12 @@ class App extends Component {
     const value = {
       sales: this.state.sales,
       randomSale: this.state.randomSale,
+      greaterThanCount: this.state.history[0],
+      totalSalesCount: this.state.history[1],
+      totalEpicCount: this.state.history[2],
+      totalGogCount: this.state.history[3],
+      totalOriginCount: this.state.history[4],
+      totalDollarAmount: this.state.history[5],
       findMaxPercent: this.findMaxPercent,
       findMaxDollars: this.findMaxDollars,
       getRandom: this.getRandom,

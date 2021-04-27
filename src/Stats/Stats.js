@@ -8,23 +8,28 @@ class Stats extends Component {
 
     render() {
 
-        let totalSales = this.context.totalSales();
+        let totalSales = this.context.totalSalesCount || {};
+        let greaterThan = this.context.greaterThanCount || {};
+        let epicSales = this.context.totalEpicCount || {};
+        let gogSales = this.context.totalGogCount || {};
+        let originSales = this.context.totalOriginCount || {};
+        let totalDollars = this.context.totalDollarAmount || {};
         
         return(
-            <div>
+            <div id="history">
                 <h2>History</h2>
                 <p>Number of Sales Greater Than 90%</p>
-                <p>{this.context.greaterThanNintey()}</p>
+                <p>{greaterThan.counts}</p>
                 <p>Total Savings in Dollars</p>
-                <p>${this.context.totalDollarSavings().toFixed(2)}</p>
+                <p>${totalDollars.dollars.toFixed(2)}</p>
                 <p>Total Sales Analyzed</p>
-                <p>{totalSales.all}</p>
+                <p>{totalSales.counts}</p>
                 <p>Epic Store</p>
-                <p>{totalSales.epic}</p>
+                <p>{epicSales.counts}</p>
                 <p>GOG</p>
-                <p>{totalSales.gog}</p>
+                <p>{gogSales.counts}</p>
                 <p>Origin</p>
-                <p>{totalSales.origin}</p>
+                <p>{originSales.counts}</p>
 
             </div>
         )
