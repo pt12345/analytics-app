@@ -1,0 +1,11 @@
+
+.history-metrics {
+    background-color: #002E2C;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    color: #E8E9EB;
+    width: 30%;
+    text-align: right;
+    padding: 3px;
+    padding-right: 5px;
+}

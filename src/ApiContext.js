@@ -14,4 +14,5 @@ export default React.createContext({
   greaterThanNintey: () => {},
   totalDollarSavings: () => {},
   totalSales: () => {},
+  setRandom: () => {}
 })

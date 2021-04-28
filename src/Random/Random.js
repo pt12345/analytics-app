@@ -10,7 +10,19 @@ class Currency extends Component {
         
         //const randomSale = this.context.getRandom() || {}
         
-        const randomSale = this.context.randomSale || {}
+        let randomSale = this.context.randomSale || {}
+
+        if (typeof randomSale.price_old === 'undefined') {
+            randomSale = {
+                "title": "Searching...",
+                "price_old": 0,
+                "price_new": 0,
+                "prics_cut": 0,
+                "shop": {
+                  "name": "..."
+                }
+              };
+        }
 
         return(
             <div id="random" className="tile">
@@ -19,7 +31,7 @@ class Currency extends Component {
                 <p>Price: ${randomSale.price_old.toFixed(2)}</p>
                 <p>Sales Price: ${randomSale.price_new.toFixed(2)}</p>
                 <p>Store: {randomSale.shop.name}</p>
-                <button type="button" onClick={this.context.getRandom}>
+                <button type="button" onClick={this.context.setRandom}>
                     Shuffle
                 </button>
                

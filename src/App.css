@@ -1,3 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+    font-family: 'Montserrat';
+    margin: 0;
+    overflow: hidden;
+}
+
+#root {
+    margin: 0;
+}
+
 #title, footer {
     background-color: #002E2C;
     margin: 0px;
@@ -18,4 +31,9 @@ footer {
 
 #footer-text {
     margin-top: 0px;
+}
+
+#loading-container {
+    display: flex;
+    width: 100%;
 }

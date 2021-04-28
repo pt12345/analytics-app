@@ -8,7 +8,19 @@ class Currency extends Component {
     
     render() {
         
-        const dollarSale = this.context.findMaxDollars() || {}
+        let dollarSale = this.context.findMaxDollars() || {}
+
+        if (typeof dollarSale.price_old === 'undefined') {
+            dollarSale = {
+                "title": "Searching...",
+                "price_old": 0,
+                "price_new": 0,
+                "prics_cut": 0,
+                "shop": {
+                  "name": "..."
+                }
+              };
+        }
 
         return(
             <div className="tile">

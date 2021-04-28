@@ -1,9 +1,20 @@
 #start-text {
-    text-align: center;
-    width: 100%;
+    text-align: right;
+    width: 50%;
     margin-top: 100px;
+    padding: 20px;
+    background-color: #002E2C;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 
 #start-link {
     text-decoration: none;
+    color: #E8E9EB;
+}
+
+#intro-message {
+    padding: 5%;
+    font-size: larger;
+    font-weight: bold;
 }

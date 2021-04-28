@@ -11,11 +11,23 @@ class Treemap extends Component {
 
     render() {
         
-        let totalSales = this.context.totalSales();
+        let totalSales = {
+            "epic": this.context.epicCount,
+            "gog": this.context.gogCount,
+            "origin": this.context.originCount
+        }
+
+        if (typeof totalSales === 'undefined') {
+            totalSales = {
+                "epic": 1,
+                "gog": 1,
+                "origin": 1
+              };
+        }
 
         return(
             <div id="chart" className="tile">
-                <h2>Current Sales by Store</h2>
+                {totalSales.epic > 1 && <h2 id="chart-title">Current Sales by Store</h2>}
                 <Chart
                     width={"350px"}
                

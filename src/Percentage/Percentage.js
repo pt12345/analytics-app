@@ -8,7 +8,19 @@ class Percentage extends Component {
 
     
     render() {
-        const percentSale = this.context.findMaxPercent() || {}
+        let percentSale = this.context.findMaxPercent() || {}
+
+        if (typeof percentSale.price_old === 'undefined') {
+            percentSale = {
+                "title": "Searching...",
+                "price_old": 0,
+                "price_new": 0,
+                "prics_cut": 0,
+                "shop": {
+                  "name": "..."
+                }
+              };
+        }
         return(
             <div className="tile">
                 <h2>Best Sale by Percentage: {percentSale.price_cut}%</h2>
